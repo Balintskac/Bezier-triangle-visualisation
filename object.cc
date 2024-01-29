@@ -41,6 +41,8 @@ void Object::draw(const Visualization &vis) const {
       for (auto v : f.vertices()) {
         if (vis.type == VisType::MEAN)
           glColor3dv(vis.colorMap(vis.mean_min, vis.mean_max, mesh.data(v).mean).data());
+        else if (vis.type == VisType::EGZAKT_MEAN)
+          glColor3dv(vis.colorMap(vis.mean_min, vis.mean_max, mesh.data(v).egzakt_mean).data());
         else if (vis.type == VisType::SLICING)
           glTexCoord1d(mesh.point(v) | vis.slicing_dir * vis.slicing_scaling);
         glNormal3dv(mesh.normal(v).data());

@@ -1,6 +1,7 @@
 #include <QtGui/QKeyEvent>
 
 #include "bezier.hh"
+#include "bezier_triangle.hh"
 #include "mesh.hh"
 #include "viewer.hh"
 
@@ -65,6 +66,8 @@ bool Viewer::open(std::string filename) {
   std::shared_ptr<Object> surface;
   if (filename.ends_with(".bzr"))
     surface = std::make_shared<Bezier>(filename);
+  else if (filename.ends_with(".tri"))
+    surface = std::make_shared<BezierTriangle>(filename);
   else
     surface = std::make_shared<Mesh>(filename);
   if (!surface->valid())
@@ -254,6 +257,13 @@ void Viewer::keyPressEvent(QKeyEvent *e) {
       break;
     default:
       QGLViewer::keyPressEvent(e);
+    }
+  else if (e->modifiers() == Qt::ShiftModifier)
+    switch (e->key()) {
+    case Qt::Key_M:
+      vis.type = VisType::EGZAKT_MEAN;
+      update();
+      break;
     }
   else if (e->modifiers() == Qt::KeypadModifier)
     switch (e->key()) {

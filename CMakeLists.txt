@@ -27,6 +27,7 @@ endif(CMAKE_COMPILER_IS_GNUCXX)
 set(geo_HEADERS # headers processed by MOC
   viewer.hh
   window.hh
+  bezier_triangle.hh
   )
 
 set(CMAKE_AUTORCC ON)
@@ -59,6 +60,7 @@ add_executable(geo-framework WIN32
   viewer.cc
   visualization.cc
   window.cc
+  bezier_triangle.cc
   )
 
 if(WITH_JET_FITTING)
